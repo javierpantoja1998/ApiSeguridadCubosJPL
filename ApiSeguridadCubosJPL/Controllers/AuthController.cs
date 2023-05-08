@@ -4,7 +4,9 @@ using ApiSeguridadCubosJPL.Repositories;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.IdentityModel.Tokens;
+using Newtonsoft.Json;
 using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
 
 namespace ApiSeguridadCubosJPL.Controllers
 {
@@ -41,12 +43,12 @@ namespace ApiSeguridadCubosJPL.Controllers
                 SigningCredentials credentials =
                     new SigningCredentials(this.helper.GetKeyToken(),
                     SecurityAlgorithms.HmacSha256);
-                //string jsonEmpleado =
-                //    JsonConvert.SerializeObject(user);
-                //Claim[] informacion = new[]
-                //{
-                //    new Claim("UserData", "datos extra")
-                //};
+                string jsonEmpleado =
+                    JsonConvert.SerializeObject(user);
+                Claim[] informacion = new[]
+                {
+                    new Claim("UserData", jsonEmpleado)
+                };
 
                 //EL TOKEN SE GENERA CON UNA CLASE Y DEBEMOS INDICAR
                 //LOS DATOS QUE CONFORMAN DICHO TOKEN

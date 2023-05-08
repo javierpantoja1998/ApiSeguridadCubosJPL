@@ -34,13 +34,12 @@ namespace ApiSeguridadCubosJPL.Repositories
         }
 
         //METODO PARA BUSCAR CUBO
-        public async Task<Cubo> FindCuboAsync(string marca)
+        public async Task<List<Cubo>> FindCuboAsync(string marca)
         {
             return await
-                this.context.Cubos.FirstOrDefaultAsync
-                (x => x.Marca == marca);
+                this.context.Cubos.ToListAsync
+                ();
         }
-
         //METODO PARA INSERTAR CUBO
         //Funcion para insertar
         public async Task InsertCubo
@@ -103,5 +102,6 @@ namespace ApiSeguridadCubosJPL.Repositories
             await this.context.SaveChangesAsync();
         }
         
+
     }
 }

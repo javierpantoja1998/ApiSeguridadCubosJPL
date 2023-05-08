@@ -27,7 +27,7 @@ namespace ApiSeguridadCubosJPL.Controllers
 
         //METODO PARA BUSCAR CUBO
         [HttpGet("{marca}")]
-        public async Task<ActionResult<Cubo>> FindCubo(string marca)
+        public async Task <ActionResult<List<Cubo>>> FindCubo(string marca)
         {
             return await this.repo.FindCuboAsync(marca);
         }
