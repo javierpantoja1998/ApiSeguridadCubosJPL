@@ -56,7 +56,52 @@ namespace ApiSeguridadCubosJPL.Repositories
             this.context.Cubos.Add(cubo);
             await this.context.SaveChangesAsync();
         }
-       
+
+        //FUNCION PARA MOSTRAR DETALLES USUARIO
+        public async Task<Usuario> FindUsuario(int id)
+        {
+            return await
+                this.context.Usuarios.FirstOrDefaultAsync
+                (x => x.IdUsuario == id);
+        }
+
+        
+        //FUNCION PARA INSERTAR UN USUARIO
+        public async Task InsertUsuario
+           (int id, string nombre, string email, string password, string imagen)
+        {
+            Usuario user = new Usuario();
+            user.IdUsuario = id;
+            user.Nombre = nombre;
+            user.Email = email;
+            user.Password = password;
+            user.Imagen = imagen;
+            
+            this.context.Usuarios.Add(user);
+            await this.context.SaveChangesAsync();
+        }
+
+        //FUNCION PARA MOSTRAR PEDIDOS
+        public async Task<List<CompraCubo>> GetPedidosAsync(int id)
+        {
+            return await
+                this.context.Pedidos.Where
+                (x => x.IdUsuario == id).ToListAsync();
+        }
+
+        //FUNCION PARA REALIZAR UNA COMPRA
+        public async Task InsertPedido
+           (int idpedido, int idcubo, int idusuario, DateTime fecha)
+        {
+            CompraCubo compra = new CompraCubo();
+            compra.IdPedido = idpedido;
+            compra.IdCubo = idcubo;
+            compra.IdUsuario = idusuario;
+            compra.FechaPedido = fecha;
+
+            this.context.Pedidos.Add(compra);
+            await this.context.SaveChangesAsync();
+        }
         
     }
 }
